@@ -1,0 +1,19 @@
+{
+  "name": "KillerRobot",
+  "description": "Kills tabs everywhere (in the window you use it in) for increased performace! \n Click to kill tabs, click again to refresh all.",
+  "version": "1.5",
+  "background": {
+    "scripts": ["app.js"]
+  },
+  "permissions": [
+    "tabs"
+  ],
+  "browser_action": {
+      "default_title": "KillerRobot",
+      "default_icon": "icon.png"
+  },
+  "icons": { "16": "icon.png",
+             "48": "icon48.png",
+            "128": "icon128.png" },
+  "manifest_version": 3
+}
