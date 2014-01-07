@@ -1,7 +1,7 @@
 {
   "name": "KillerRobot",
-  "description": "Kills tabs everywhere (in the window you use it in) for increased performace! \n Click to kill tabs, click again to refresh all.",
-  "version": "1.5",
+  "description": "Kills unpinned tabs in a window for increased performace! \n Click to kill tabs, click again to refresh.",
+  "version": "1.7",
   "background": {
     "scripts": ["app.js"]
   },
@@ -15,5 +15,5 @@
   "icons": { "16": "icon.png",
              "48": "icon48.png",
             "128": "icon128.png" },
-  "manifest_version": 3
+  "manifest_version": 2
 }

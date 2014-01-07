@@ -18,11 +18,19 @@ chrome.browserAction.onClicked.addListener(function(tab) {
     while(tabArray.length !== 0)
     {
         var t = tabArray.shift();
-        if ( !t.pinned && !t.highlighted && !t.selected && !t.active )
+        if ( !t.pinned && !t.highlighted && !t.active )
         {
           msg += t.index + ", ";
-          if (killClick)
-            chrome.tabs.update(t.id, { url: "chrome://kill" } , null);
+          if (killClick) {
+
+            (function (holdURL) {
+              chrome.tabs.update(t.id, { url: "chrome://kill" } );
+              chrome.tabs.update(t.id, { url: holdURL } );
+
+            }) (t.url);
+
+            
+          }
           else
             chrome.tabs.reload(t.id);
         }
