@@ -4,14 +4,8 @@ var increasingDelay = 200;
 // Called when the user clicks on the browser action.
 chrome.browserAction.onClicked.addListener(function(tab) {
 
-  // chrome.tabs.getSelected(null, function (T) {
-  //   (T == undefined) ? console.log("noppe") : console.log(T.index);
-  //   chrome.tabs.update(null, { url: "chrome://kill" } , null);
-  // });
   chrome.windows.getCurrent({populate : true}, function (Window) {
-    // console.log(Window)
-    var tabArray = Window.tabs,
-        msg = "";
+    var tabArray = Window.tabs;
 
     killClick = !killClick;
 
@@ -25,7 +19,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
     {
         var t = tabArray.shift();
         increasingDelay += 700;
-        
+
         if ( !t.pinned && !t.highlighted && !t.active )
           if (killClick)
             (function (holdURL) {
