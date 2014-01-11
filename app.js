@@ -1,6 +1,6 @@
 
 var killClick = false;
-
+var increasingDelay = 200;
 // Called when the user clicks on the browser action.
 chrome.browserAction.onClicked.addListener(function(tab) {
 
@@ -13,30 +13,35 @@ chrome.browserAction.onClicked.addListener(function(tab) {
     var tabArray = Window.tabs,
         msg = "";
 
-        killClick = !killClick;
+    killClick = !killClick;
+
+    if (killClick)
+      chrome.browserAction.setIcon({ path: 'icon-r.png'});
+    else
+      chrome.browserAction.setIcon({ path: 'icon.png'});
+
 
     while(tabArray.length !== 0)
     {
         var t = tabArray.shift();
+        increasingDelay += 700;
+        
         if ( !t.pinned && !t.highlighted && !t.active )
-        {
-          msg += t.index + ", ";
-          if (killClick) {
-
+          if (killClick)
             (function (holdURL) {
               chrome.tabs.update(t.id, { url: "chrome://kill" } );
               chrome.tabs.update(t.id, { url: holdURL } );
 
             }) (t.url);
-
-            
-          }
           else
-            chrome.tabs.reload(t.id);
-        }
+            (function (delay, id) {
+              setTimeout(function() {
+                chrome.tabs.reload(id);
+                console.log("reloaded "+t.id+" after delay "+delay);
+              }, delay);
+            }) (increasingDelay, t.id);
     }
-  });
 
-  // var action_url = "javascript:window.print();";
-  // chrome.tabs.update(tab.id, {url: action_url});
+    increasingDelay = 200;
+  });
 });
